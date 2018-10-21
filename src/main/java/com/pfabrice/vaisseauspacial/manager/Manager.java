@@ -17,50 +17,17 @@ import com.pfabrice.vaisseauspacial.objets.Vaisseau;
 public class Manager {
 
 	Planete planete;
-	Planete planete2;
 	Vaisseau vaisseau;
-	Compartiment compartiment;
-	Marchandise marchandise;
-	
+	// Compartiment compartiment;
 
 	/**
 	 * @param planete
-	 * @param planete2
 	 * @param vaisseau
 	 */
 	public Manager() {
 		super();
 		this.planete = new Planete("Terre", new Coordonnee(10, 20, 30));
-		this.planete2 = new Planete("Mars", new Coordonnee(100, 200, 300));
 		this.vaisseau = new Vaisseau("fusee1", 1000, planete);
-	}
-
-	/**
-	 * @return the planete
-	 */
-	public Planete getPlanete() {
-		return planete;
-	}
-
-	/**
-	 * @param planete the planete to set
-	 */
-	public void setPlanete(Planete planete) {
-		this.planete = planete;
-	}
-
-	/**
-	 * @return the planete2
-	 */
-	public Planete getPlanete2() {
-		return planete2;
-	}
-
-	/**
-	 * @param planete2 the planete2 to set
-	 */
-	public void setPlanete2(Planete planete2) {
-		this.planete2 = planete2;
 	}
 
 	/**
@@ -77,35 +44,58 @@ public class Manager {
 		this.vaisseau = vaisseau;
 	}
 
-	public void voyager() {
+	public void voyager(Planete planete, Planete planete2) {
 
-		if (vaisseau.getPlanete().getNom().equals(this.planete.getNom())) {
-			vaisseau.setUniteCarburant(vaisseau.getUniteCarburant() - 500);
-			vaisseau.setPlanete(planete2);
+		// TODO
+		// ((sqrt((Xa-Xb)²+(Ya-Yb)²+(Za-Zb)²)/100) * (poidsFusée / 100))
+
+		if (this.vaisseau.getPlanete().getNom().equals(planete.getNom())) {
+			if (this.vaisseau.getUniteCarburant() > 0) {
+				this.vaisseau.setPlanete(planete2);
+				this.vaisseau.setUniteCarburant(this.vaisseau.getUniteCarburant() - 300);
+			}
+
 		} else {
-			vaisseau.setUniteCarburant(vaisseau.getUniteCarburant() - 800);
-			vaisseau.setPlanete(planete);
+			if (this.vaisseau.getUniteCarburant() > 0) {
+				this.vaisseau.setPlanete(planete);
+				this.vaisseau.setUniteCarburant(this.vaisseau.getUniteCarburant() - 300);
+			}
 		}
+
 	}
-	
-	public void attribuerCompartiment() {
-		this.vaisseau.getCompartiments().add(this.compartiment);
+
+	public void attribuerCompartiment(Compartiment compartiment) {
+		this.vaisseau.getCompartiments().add(compartiment);
 	}
-	
-	public void affreterCompartiment() {
-		this.marchandise = new Marchandise("bois", 100);
-		this.compartiment = new Compartiment(1000, marchandise);
-		
-		for (int i = marchandise.getPoids(); i < compartiment.getPoidsMax(); i++) {
-			//TODO
+
+	public void attribuerCosmonaute(Cosmonaute cosmonaute) {
+		this.vaisseau.getCosmonautes().add(cosmonaute);
+	}
+
+	public void affreterCompartiment(Compartiment compartiment, Marchandise marchandise) {
+
+		int poidsTotalMarchandises = 0;
+		while (compartiment.getPoidsMax() > poidsTotalMarchandises) {
+			compartiment.getMarchandises().add(marchandise);
+			poidsTotalMarchandises = poidsTotalMarchandises + marchandise.getPoids();
 		}
-		
+
 	}
-	
-	public void attribuerCosmonaute() {
-		this.vaisseau.getCosmonautes().add(new Cosmonaute("PESQUET Thomas", 75));
-		this.vaisseau.getCosmonautes().add(new Cosmonaute("ARMSTRONG Neil", 80));
+
+	public int poidsTotalVaisseau() {
+
+		int poidsTotalVaisseau = 0;
+
+		for (Compartiment el : this.vaisseau.getCompartiments()) {
+			poidsTotalVaisseau = poidsTotalVaisseau + el.getPoidsMax();
+
+		}
+
+		for (Cosmonaute el : this.vaisseau.getCosmonautes()) {
+			poidsTotalVaisseau = poidsTotalVaisseau + el.getPoids();
+		}
+		return poidsTotalVaisseau;
+
 	}
-	
-	
+
 }

@@ -3,6 +3,8 @@
  */
 package com.pfabrice.vaisseauspacial.objets;
 
+import java.util.ArrayList;
+
 /**
  * @author Fabrice
  *
@@ -10,16 +12,15 @@ package com.pfabrice.vaisseauspacial.objets;
 public class Compartiment {
 
 	int poidsMax;
-	Marchandise marchandise;
+	ArrayList<Marchandise> marchandises;
 
 	/**
 	 * @param poidsMax
-	 * @param marchandise
 	 */
-	public Compartiment(int poidsMax, Marchandise marchandise) {
+	public Compartiment(int poidsMax) {
 		super();
 		this.poidsMax = poidsMax;
-		this.marchandise = marchandise;
+		this.marchandises = new ArrayList<Marchandise>();
 	}
 
 	/**
@@ -37,17 +38,17 @@ public class Compartiment {
 	}
 
 	/**
-	 * @return the marchandise
+	 * @return the marchandises
 	 */
-	public Marchandise getMarchandise() {
-		return marchandise;
+	public ArrayList<Marchandise> getMarchandises() {
+		return marchandises;
 	}
 
 	/**
-	 * @param marchandise the marchandise to set
+	 * @param marchandises the marchandises to set
 	 */
-	public void setMarchandise(Marchandise marchandise) {
-		this.marchandise = marchandise;
+	public void setMarchandises(ArrayList<Marchandise> marchandises) {
+		this.marchandises = marchandises;
 	}
 
 	/*
@@ -57,7 +58,7 @@ public class Compartiment {
 	 */
 	@Override
 	public String toString() {
-		return "Compartiment [poidsMax=" + poidsMax + ", marchandise=" + marchandise + "]";
+		return "Compartiment [poidsMax=" + poidsMax + ", marchandises=" + marchandises + "]";
 	}
 
 }
