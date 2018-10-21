@@ -19,6 +19,9 @@ public class Application {
 
 		int choix = 0;
 		Manager manager = new Manager();
+		manager.attribuerCosmonaute();
+		
+		//System.out.println(manager.getVaisseau().getCosmonautes().get(0).getNom());
 
 		while (manager.getVaisseau().getUniteCarburant() > 0) {
 
